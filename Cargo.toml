@@ -1,0 +1,59 @@
+[package]
+name = "{{crate_name}}"
+version = "{{crate_version}}"
+edition = "2021"
+rust-version = "{{min_rust_version}}"
+readme = "README.md"
+license = "{{license}}"
+
+authors = [
+    "{{author_name}} <{{author_email}}>"
+]
+
+description = "{{crate_description}}"
+
+# Customize per-crate before publishing to crates.io. crates.io accepts
+# up to 5 keywords and up to 5 categories from the published taxonomy.
+keywords = ["database", "embedded", "{{db_kind}}"]
+
+categories = ["database-implementations"]
+
+documentation = "https://docs.rs/{{crate_name}}"
+repository = "https://github.com/{{author_handle}}/{{repo_name}}"
+homepage = "https://github.com/{{author_handle}}/{{repo_name}}"
+
+# Configuration for docs.rs
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+# Add runtime dependencies here. See STUBS.md for guidance on the
+# org-default storage substrate (`storage-io`) and other shared
+# building blocks that embedded DBs in this org typically consume.
+
+[dev-dependencies]
+criterion = { version = "0.5", default-features = false }
+fastrand = "2"
+
+[features]
+default = []
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+
+[profile.bench]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+
+[[bench]]
+name = "scaffold"
+harness = false
+
+[[example]]
+name = "basic"

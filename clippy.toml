@@ -1,0 +1,3 @@
+# clippy configuration for {{crate_name}}
+avoid-breaking-exported-api = true
+msrv = "{{min_rust_version}}"

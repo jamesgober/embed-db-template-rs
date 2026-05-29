@@ -1,0 +1,102 @@
+# cargo-generate configuration for `embed-db-template`.
+#
+# Run:
+#   cargo generate --git https://github.com/jamesgober/embed-db-template
+#   cargo generate --path /path/to/embed-db-template
+#
+# Each `[placeholders.<name>]` block prompts the user for a value;
+# the value is substituted into every file in the template via
+# Liquid syntax (`{{name}}` or `{{name | filter}}`).
+#
+# After generation, run through `STUBS.md` for the post-generation
+# checklist.
+
+[template]
+cargo_generate_version = ">=0.21.0"
+
+# Files that exist in this template repository but should NEVER appear
+# in the generated crate. `TEMPLATE.md` is this template's own README
+# (for humans browsing the template repo); `STUBS.md` is the
+# post-generation checklist — both are excluded so the generated crate
+# stays clean.
+ignore = [
+    "TEMPLATE.md",
+    "cargo-generate.toml",
+    "pre-generate.rhai",
+]
+
+# Hooks run before placeholders are filled in. The Rhai pre-script
+# below derives `crate_name_snake`, `crate_name_pascal`, and `year`
+# from the inputs the user already provided, so the user is not
+# pestered for redundant values.
+[hooks]
+pre = ["pre-generate.rhai"]
+
+# ---------------------------------------------------------------------
+# PLACEHOLDERS — the values the user is prompted for at generation time.
+# ---------------------------------------------------------------------
+
+[placeholders.crate_name]
+type = "string"
+prompt = "Crate name (kebab-case, e.g. vec-db, graph-db)"
+regex = "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
+
+[placeholders.crate_description]
+type = "string"
+prompt = "Short description of the crate (one sentence, shown on crates.io)"
+
+[placeholders.crate_version]
+type = "string"
+prompt = "Initial version"
+default = "0.1.0"
+
+[placeholders.db_kind]
+type = "string"
+prompt = "What kind of DB is this?"
+choices = ["vector", "graph", "document", "key-value", "object"]
+default = "vector"
+
+[placeholders.error_prefix]
+type = "string"
+prompt = "Error-code prefix (short uppercase, e.g. VD, GD, DD — used in Hive error registry as PREFIX-XXXXX)"
+regex = "^[A-Z]{2,5}$"
+
+[placeholders.author_name]
+type = "string"
+prompt = "Author full name"
+default = "James Gober"
+
+[placeholders.author_email]
+type = "string"
+prompt = "Author email"
+default = "me@jamesgober.com"
+
+[placeholders.author_handle]
+type = "string"
+prompt = "GitHub handle / org (the `OWNER` in github.com/OWNER/repo)"
+default = "jamesgober"
+
+[placeholders.copyright_name]
+type = "string"
+prompt = "Copyright holder name (usually same as author)"
+default = "James Gober"
+
+[placeholders.repo_name]
+type = "string"
+prompt = "GitHub repository name (often same as crate_name)"
+
+[placeholders.start_date]
+type = "string"
+prompt = "Project start date (YYYY-MM-DD)"
+default = "2026-05-29"
+
+[placeholders.license]
+type = "string"
+prompt = "License"
+choices = ["Apache-2.0 OR MIT", "Apache-2.0", "MIT", "Proprietary"]
+default = "Apache-2.0 OR MIT"
+
+[placeholders.min_rust_version]
+type = "string"
+prompt = "Minimum supported Rust version (MSRV)"
+default = "1.75"
