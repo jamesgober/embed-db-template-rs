@@ -3,7 +3,7 @@
 //! Exercises the public API surface of the crate. Add real
 //! integration tests here as functionality lands.
 
-use {{crate_name_snake}}::{{crate_name_pascal}};
+use {{crate_name}}::{{crate_name_pascal}};
 
 #[test]
 fn open_in_memory_and_close() {

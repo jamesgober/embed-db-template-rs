@@ -1,6 +1,6 @@
 // Copyright {{year}} {{copyright_name}}. Licensed under {{license}}.
 
-//! Public handle for the `{{crate_name}}` embedded {{db_kind}} database.
+//! Public handle for the `{{project-name}}` embedded {{db_kind}} database.
 //!
 //! Every method on [`{{crate_name_pascal}}`] is currently a stub. The
 //! shape of the public API is intentionally minimal — `open` /
@@ -14,7 +14,7 @@ use std::path::Path;
 
 use crate::error::{Error, Result};
 
-/// Top-level handle for an open `{{crate_name}}` database.
+/// Top-level handle for an open `{{project-name}}` database.
 ///
 /// Construct one with [`{{crate_name_pascal}}::open`] for a file-backed
 /// store or [`{{crate_name_pascal}}::open_in_memory`] for an ephemeral
@@ -75,7 +75,7 @@ mod tests {
 
     #[test]
     fn open_returns_not_implemented() {
-        let result = {{crate_name_pascal}}::open("/tmp/{{crate_name_snake}}-test");
+        let result = {{crate_name_pascal}}::open("/tmp/{{crate_name}}-test");
         assert!(matches!(result, Err(Error::NotImplemented)));
     }
 

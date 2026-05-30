@@ -1,7 +1,7 @@
 // Copyright {{year}} {{copyright_name}}.
 // Licensed under {{license}}.
 
-//! # {{crate_name}}
+//! # {{project-name}}
 //!
 //! {{crate_description}}
 //!

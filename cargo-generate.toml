@@ -36,10 +36,11 @@ pre = ["pre-generate.rhai"]
 # PLACEHOLDERS — the values the user is prompted for at generation time.
 # ---------------------------------------------------------------------
 
-[placeholders.crate_name]
-type = "string"
-prompt = "Crate name (kebab-case, e.g. vec-db, graph-db)"
-regex = "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
+# `project-name` is supplied by cargo-generate as a built-in placeholder
+# (kebab-case form, e.g. `vec-db`), and `crate_name` is the auto-derived
+# snake_case version (e.g. `vec_db`). Both are sourced from `--name` /
+# the interactive prompt and must NOT be re-declared here, or
+# cargo-generate errors with `placeholder ... is reserved`.
 
 [placeholders.crate_description]
 type = "string"

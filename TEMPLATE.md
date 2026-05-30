@@ -45,28 +45,39 @@ through `STUBS.md` and delete it.
 
 ## Token reference
 
-cargo-generate uses lowercase `snake_case` placeholder names. In
-template files they appear as `{{placeholder_name}}` (Liquid syntax,
+In template files, placeholders appear as `{{name}}` (Liquid syntax,
 case-sensitive).
 
-| Token | Prompted? | Example | Notes |
+cargo-generate supplies **two built-in placeholders** automatically
+from the project name (passed via `--name` or prompted):
+
+- `{{project-name}}` — kebab-case form (`vec-db`). Use for the Cargo
+  package name, crates.io / docs.rs URLs, prose mentions of the crate.
+- `{{crate_name}}` — snake_case form (`vec_db`), derived from
+  `project-name`. Use for Rust identifiers (`use {{crate_name}}::...`,
+  module paths).
+
+Neither is declared in `cargo-generate.toml` — they are reserved
+built-ins and re-declaring them is an error.
+
+| Token | Source | Example | Notes |
 |---|---|---|---|
-| `crate_name` | yes | `vec-db` | kebab-case, validated by regex |
-| `crate_name_snake` | derived | `vec_db` | from `crate_name` via Rhai pre-script |
-| `crate_name_pascal` | derived | `VecDb` | from `crate_name` via Rhai pre-script |
-| `crate_description` | yes | `"Embedded vector database with HNSW indexing"` | shown on crates.io |
-| `crate_version` | yes | `0.1.0` | default `0.1.0` |
-| `db_kind` | yes | `vector` | choice: vector / graph / document / key-value / object |
-| `error_prefix` | yes | `VD` | short uppercase, used as `VD-XXXXX` in Hive error registry |
-| `author_name` | yes | `James Gober` | default `James Gober` |
-| `author_email` | yes | `me@jamesgober.com` | default `me@jamesgober.com` |
-| `author_handle` | yes | `jamesgober` | GitHub `OWNER` in `github.com/OWNER/repo` |
-| `copyright_name` | yes | `James Gober` | usually same as `author_name` |
-| `repo_name` | yes | `vec-db` | GitHub repo name (often == `crate_name`) |
-| `start_date` | yes | `2026-05-29` | YYYY-MM-DD; first 4 chars become `{{year}}` |
-| `year` | derived | `2026` | from `start_date` via Rhai pre-script |
-| `license` | yes | `Apache-2.0 OR MIT` | choice: dual / Apache-only / MIT / Proprietary |
-| `min_rust_version` | yes | `1.75` | MSRV |
+| `project-name` | built-in | `vec-db` | kebab-case; from `--name` or prompt |
+| `crate_name` | built-in | `vec_db` | snake_case; auto-derived from `project-name` |
+| `crate_name_pascal` | Rhai-derived | `VecDb` | from `project-name` via `pre-generate.rhai` |
+| `crate_description` | prompted | `"Embedded vector database with HNSW indexing"` | shown on crates.io |
+| `crate_version` | prompted | `0.1.0` | default `0.1.0` |
+| `db_kind` | prompted | `vector` | choice: vector / graph / document / key-value / object |
+| `error_prefix` | prompted | `VD` | short uppercase, used as `VD-XXXXX` in Hive error registry |
+| `author_name` | prompted | `James Gober` | default `James Gober` |
+| `author_email` | prompted | `me@jamesgober.com` | default `me@jamesgober.com` |
+| `author_handle` | prompted | `jamesgober` | GitHub `OWNER` in `github.com/OWNER/repo` |
+| `copyright_name` | prompted | `James Gober` | usually same as `author_name` |
+| `repo_name` | prompted | `vec-db` | GitHub repo name (often == `project-name`) |
+| `start_date` | prompted | `2026-05-29` | YYYY-MM-DD; first 4 chars become `{{year}}` |
+| `year` | Rhai-derived | `2026` | from `start_date` via `pre-generate.rhai` |
+| `license` | prompted | `Apache-2.0 OR MIT` | choice: dual / Apache-only / MIT / Proprietary |
+| `min_rust_version` | prompted | `1.75` | MSRV |
 
 `keywords` and `categories` ship with sensible defaults in `Cargo.toml`
 (`["database", "embedded", "{{db_kind}}"]` and

@@ -1,30 +1,24 @@
 // pre-generate.rhai
 //
-// Runs once before placeholder substitution. Derives the three values
+// Runs once before placeholder substitution. Derives the two values
 // that can be computed from the user's other inputs, so the user does
 // not have to type them:
 //
-//   - crate_name_snake   ("vec-db"   -> "vec_db")
-//   - crate_name_pascal  ("vec-db"   -> "VecDb")
-//   - year               ("2026-05-29" -> "2026")
+//   - crate_name_pascal  (kebab "vec-db" -> "VecDb")
+//   - year               ("2026-05-29"   -> "2026")
 //
-// Set on the cargo-generate variable table so every template file can
-// reference them as `{{crate_name_snake}}` / `{{crate_name_pascal}}` /
-// `{{year}}` without an extra prompt.
+// Note: `crate_name_snake` is NOT derived here — cargo-generate's
+// built-in `crate_name` placeholder is already the snake_case version
+// of `project-name`. Use `{{crate_name}}` directly in templates where
+// the Rust-identifier form is needed; use `{{project-name}}` for the
+// kebab-case form (Cargo.toml `name`, crates.io URLs, prose).
 
-let name = variable::get("crate_name");
+// Pascal-case derivation needs the kebab form so it can split on `-`.
+// `project-name` is the built-in kebab placeholder; `crate_name` is
+// the snake derivation and would no-op a split-on-dash.
+let kebab = variable::get("project-name");
 
-// snake: kebab -> underscore. crate_name is validated kebab-case in
-// cargo-generate.toml, so the only character that needs swapping is
-// the hyphen.
-let snake = name.replace("-", "_");
-variable::set("crate_name_snake", snake);
-
-// pascal: split on `-`, upper-case the first byte of each segment,
-// concatenate. Rhai strings are UTF-8; for our kebab-case crate
-// names (lower ASCII only) `to_upper()` is a one-byte operation
-// and the slice math is unambiguous.
-let parts = name.split("-");
+let parts = kebab.split("-");
 let pascal = "";
 for part in parts {
     if part.len() > 0 {

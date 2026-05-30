@@ -1,6 +1,6 @@
 // Copyright {{year}} {{copyright_name}}. Licensed under {{license}}.
 
-//! Error types for the `{{crate_name}}` crate.
+//! Error types for the `{{project-name}}` crate.
 //!
 //! All fallible operations return [`Result<T>`] — an alias for
 //! `core::result::Result<T, Error>`. The [`Error`] type enumerates every
@@ -12,7 +12,7 @@ use core::fmt;
 /// Convenient `Result` alias where the error type is fixed to [`Error`].
 pub type Result<T> = core::result::Result<T, Error>;
 
-/// The top-level error type returned by every fallible operation in `{{crate_name}}`.
+/// The top-level error type returned by every fallible operation in `{{project-name}}`.
 ///
 /// The enum is `#[non_exhaustive]`; new variants may be added in minor
 /// releases as new failure modes emerge. Callers must never write
@@ -44,9 +44,9 @@ pub enum Error {
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Io(err) => write!(f, "{{crate_name}}: io error ({})", err.kind()),
-            Self::InvalidConfig(msg) => write!(f, "{{crate_name}}: invalid configuration ({msg})"),
-            Self::NotImplemented => f.write_str("{{crate_name}}: not implemented"),
+            Self::Io(err) => write!(f, "{{project-name}}: io error ({})", err.kind()),
+            Self::InvalidConfig(msg) => write!(f, "{{project-name}}: invalid configuration ({msg})"),
+            Self::NotImplemented => f.write_str("{{project-name}}: not implemented"),
         }
     }
 }
