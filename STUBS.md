@@ -54,8 +54,8 @@ has its own data model and module shape. Build what your DB needs.
       the lock-free journal primitive, NVMe passthrough flush,
       io_uring on Linux, atomic-replace `write_copy`. If you are
       building a {{db_kind}} DB and have no specific reason to roll
-      your own journal, default to `storage-io`. Document the choice
-      in `.dev/PROMPT.md` "Layers" section.
+      your own journal, default to `storage-io`. Record the choice
+      in the crate docs.
 - [ ] **Builder pattern decision.** emdb ships `EmdbBuilder` because it
       has many configuration knobs (path, TTL defaults, flush policy,
       range-scan toggle, encryption keys). If your DB has more than
@@ -124,7 +124,7 @@ has its own data model and module shape. Build what your DB needs.
 
 ## 4. Project coordination
 
-These tie the new crate back to the rest of the Hive ecosystem.
+These tie the new crate back to the rest of the portfolio.
 
 - [ ] **Workspace registration.** If this crate joins a multi-crate
       workspace, add a `members = [...]` entry in the workspace
@@ -137,7 +137,7 @@ These tie the new crate back to the rest of the Hive ecosystem.
       script in the wider org, register this crate with it so future
       REPS updates land here automatically.
 - [ ] **Error registry.** Reserve the `{{error_prefix}}-` prefix
-      range in the wider Hive error registry, if one exists.
+      range in the wider error registry, if one exists.
 - [ ] **CHANGELOG hooked up.** The `[Unreleased]` link in
       `CHANGELOG.md` points at the repo's commit log. Update the link
       on first tagged release.
