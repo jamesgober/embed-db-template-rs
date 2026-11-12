@@ -59,7 +59,7 @@ default = "vector"
 
 [placeholders.error_prefix]
 type = "string"
-prompt = "Error-code prefix (short uppercase, e.g. VD, GD, DD — used in Hive error registry as PREFIX-XXXXX)"
+prompt = "Error-code prefix (short uppercase, e.g. VD, GD, DD; used in the error registry as PREFIX-XXXXX)"
 regex = "^[A-Z]{2,5}$"
 
 [placeholders.author_name]

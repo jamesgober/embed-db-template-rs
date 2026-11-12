@@ -1,8 +1,7 @@
 # embed-db-template
 
 A [`cargo-generate`](https://github.com/cargo-generate/cargo-generate)
-template for spinning up new embedded-database crates in the Hive
-ecosystem.
+template for spinning up new embedded-database crates.
 
 > **This is the template repo's own README.** It is not shipped to
 > generated crates — `cargo-generate.toml` lists it in the `ignore`
@@ -23,7 +22,6 @@ Every embedded DB in this org — `vec-db`, `graph-db`, `doc-db`,
 - `[[bench]]` and `[[example]]` declarations
 - `cargo-deny` + `cargo-audit` in CI
 - Three-platform CI matrix
-- `.dev/PROMPT.md` + `.dev/DIRECTIVES.md` AI development guard rails
 
 This template is the structural shape, with all KV-specific semantics
 stripped out. The reference implementation is
@@ -68,7 +66,7 @@ built-ins and re-declaring them is an error.
 | `crate_description` | prompted | `"Embedded vector database with HNSW indexing"` | shown on crates.io |
 | `crate_version` | prompted | `0.1.0` | default `0.1.0` |
 | `db_kind` | prompted | `vector` | choice: vector / graph / document / key-value / object |
-| `error_prefix` | prompted | `VD` | short uppercase, used as `VD-XXXXX` in Hive error registry |
+| `error_prefix` | prompted | `VD` | short uppercase, used as `VD-XXXXX` in the error registry |
 | `author_name` | prompted | `James Gober` | default `James Gober` |
 | `author_email` | prompted | `me@jamesgober.com` | default `me@jamesgober.com` |
 | `author_handle` | prompted | `jamesgober` | GitHub `OWNER` in `github.com/OWNER/repo` |
@@ -106,7 +104,6 @@ pretending to work.
 | `Cargo.toml`, `clippy.toml`, `README.md`, `CHANGELOG.md`, `STUBS.md` | tokenized |
 | `src/lib.rs`, `src/error.rs`, `src/db.rs` | tokenized |
 | `tests/smoke.rs`, `benches/scaffold.rs`, `examples/basic.rs` | tokenized |
-| `.dev/PROMPT.md`, `.dev/DIRECTIVES.md` | tokenized |
 | `.github/workflows/ci.yml` | tokenized (MSRV only) |
 | `deny.toml` | verbatim |
 | `LICENSE-APACHE`, `LICENSE-MIT` | verbatim (legal text must not change) |

@@ -5,7 +5,7 @@
 //! All fallible operations return [`Result<T>`] — an alias for
 //! `core::result::Result<T, Error>`. The [`Error`] type enumerates every
 //! failure mode the crate can produce. Error codes are reserved under the
-//! `{{error_prefix}}-XXXXX` prefix in the wider Hive error registry.
+//! `{{error_prefix}}-XXXXX` prefix in the wider error registry.
 
 use core::fmt;
 
